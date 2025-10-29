@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import calendar
 
 # === 1. Завантаження даних ===
 file_path = r"C:\Users\metal\Downloads\comptagevelo2010.csv"
@@ -34,9 +35,16 @@ print(total_per_lane, "\n")
 # === 7. Найпопулярніші місяці для трьох вибраних доріжок ===
 lanes_to_check = list(numeric_cols[:3])
 print("=== Найпопулярніші місяці для трьох вибраних доріжок ===")
+months_ukr = {
+    1: "січень", 2: "лютий", 3: "березень", 4: "квітень",
+    5: "травень", 6: "червень", 7: "липень", 8: "серпень",
+    9: "вересень", 10: "жовтень", 11: "листопад", 12: "грудень"
+}
+
 for lane in lanes_to_check:
-    month = df.groupby("Month")[lane].sum().idxmax()
-    print(f"Для доріжки '{lane}' найпопулярніший місяць: {month}")
+    month_num = df.groupby("Month")[lane].sum().idxmax()
+    month_name = months_ukr.get(month_num, "невідомо")
+    print(f"Для доріжки '{lane}' найпопулярніший місяць: {month_num} ({month_name})")
 print()
 
 # === 8. Побудова графіка для однієї велодоріжки ===
